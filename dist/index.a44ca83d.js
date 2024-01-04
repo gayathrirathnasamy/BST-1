@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"iZQ9B":[function(require,module,exports) {
+})({"brX5t":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "16df5292ac9dc4ba";
+module.bundle.HMR_BUNDLE_ID = "9e37d0caa44ca83d";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -574,51 +574,76 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"aR1JP":[function(require,module,exports) {
+},{}],"fhbeH":[function(require,module,exports) {
 class Node {
     constructor(val){
         this.val = val;
-        this.right = null;
         this.left = null;
-        this.count = 0;
+        this.right = null;
     }
 }
-class BST {
+class Bst {
     constructor(){
         this.root = null;
     }
-    create(val) {
+    //insert data
+    insert = (val)=>{
         const newNode = new Node(val);
-        if (!this.root) {
-            this.root = newNode;
-            return this;
-        }
+        if (!this.root) this.root = newNode;
+        else this.insertNode(this.root, newNode);
+    };
+    insertNode = (node, newNode)=>{
+        if (newNode.val === node.val) return undefined;
+        if (newNode.val < node.val) {
+            if (node.left === null) node.left = newNode;
+            else this.insertNode(node.left, newNode);
+        } else if (node.right === null) node.right = newNode;
+        else this.insertNode(node.right, newNode);
+    };
+    //find a value
+    find = (val)=>{
+        if (!this.root) return undefined;
         let current = this.root;
-        const addSide = (side)=>{
-            if (!current[side]) {
-                current[side] = newNode;
-                return this;
-            }
-            current = current[side];
-        };
-        while(true){
-            if (val === current.val) {
-                current.count++;
-                return this;
-            }
-            if (val < current.val) addSide("left");
-            else addSide("right");
+        let found = false;
+        while(current && !found){
+            if (val < current.val) current = current.left;
+            else if (val > current.val) current = current.right;
+            else found = true;
         }
-    }
+        if (!found) return "Not found";
+        return current;
+    };
+    //inorder - left -> mid -> right
+    inorder = (root)=>{
+        const nodes = [];
+        if (root) {
+            this.inorder(root.left);
+            nodes.push(root.val);
+            this.inorder(root.right);
+        }
+        return nodes;
+    };
 }
-let tree = new BST();
-tree.create(10);
-tree.create(4);
-tree.create(4);
-tree.create(12);
-tree.create(2);
-console.log(tree);
+const bst = new Bst();
+bst.insert(20);
+bst.insert(15);
+bst.insert(25);
+console.log(bst.root);
+console.log(bst.find(25));
+console.log("inorder... ", bst.inorder(bst.root));
+//postorder - left -> right -> mid
+const postorder = (root)=>{
+    const nodes = [];
+    if (root) {
+        postorder(root.left);
+        postorder(root.right);
+        nodes.push(root.val);
+    }
+    return nodes;
+};
+//preorder - mid -> left -> right
+const preorder = (root)=>{};
 
-},{}]},["iZQ9B","aR1JP"], "aR1JP", "parcelRequirebaba")
+},{}]},["brX5t","fhbeH"], "fhbeH", "parcelRequirebaba")
 
-//# sourceMappingURL=index.ac9dc4ba.js.map
+//# sourceMappingURL=index.a44ca83d.js.map

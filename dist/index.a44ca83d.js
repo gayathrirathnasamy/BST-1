@@ -624,13 +624,13 @@ class Bst {
         return nodes;
     };
 }
-const bst = new Bst();
-bst.insert(20);
+const bst = new Bst(20);
+//bst.insert(20);
 bst.insert(15);
 bst.insert(25);
 console.log(bst.root);
 console.log(bst.find(25));
-console.log("inorder... ", bst.inorder(bst.root));
+console.log("inorder... ", bst.inorder(bst));
 //postorder - left -> right -> mid
 const postorder = (root)=>{
     const nodes = [];
